@@ -1,6 +1,6 @@
 # Infinity ERP Documentation POC
 
-Astro static site + Sanity Studio for publishing Infinity ERP blogs, customer stories, and guides. The site includes local preview content, so it can be built before a Sanity project is configured.
+Astro static site + Sanity Studio for publishing Infinity ERP blogs, customer stories, and guides. The local preview dataset includes several clearly labeled fictional Ethiopian inventory stories and a role-based physical stock count / inventory adjustment guide. The fictional examples are illustrative training content, not real customer accounts, verified results, or assertions about deployed product functionality.
 
 ## Run locally
 
@@ -12,7 +12,7 @@ cp .env.example .env
 npm run dev
 ```
 
-Open the local Astro URL printed by the dev server. Without valid Sanity settings, the site uses its included preview articles. The preview customer story is illustrative placeholder content; replace it with approved and verified customer information before publishing.
+Open the local Astro URL printed by the dev server. Without valid Sanity settings, the site uses its included preview articles. The preview customer stories are fictional Ethiopian scenarios and must not be presented as real customers. Replace them with approved, verified content before using real customer names or outcomes.
 
 ## Connect Sanity
 
@@ -22,7 +22,7 @@ Open the local Astro URL printed by the dev server. Without valid Sanity setting
 4. Keep published content public/readable. Never put a Sanity write token or other secret in a `PUBLIC_` variable or in this public site.
 5. Run `npm run build` again whenever content is published; the static site retrieves published content during the build.
 
-The Sanity Studio uses the same environment variables. `.env` is intentionally ignored by Git; only `.env.example` should be committed.
+The Sanity Studio uses the same environment variables. `.env` is intentionally ignored by Git; only `.env.example` should be committed. Preview fixtures are used only when Sanity is not configured; they are not automatically inserted into a Sanity dataset.
 
 ## Cloudflare Pages deployment
 
