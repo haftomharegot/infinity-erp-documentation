@@ -1,0 +1,16 @@
+---
+import { labelFor, sectionFor, type Article } from "../lib/content";
+const { article } = Astro.props as { article: Article };
+const href = `/${sectionFor(article)}/${article.slug}/`;
+---
+<article class="card" data-search-item data-search-text={`${article.title} ${article.excerpt} ${article.category ?? ""} ${article.tags.join(" ")}`}>
+  <a class="card-link" href={href}>
+    {article.coverImage?.url && <img class="card-image" src={article.coverImage.url} alt={article.coverImage.alt ?? ""} loading="lazy" />}
+    <div class="card-body">
+      <p class="eyebrow">{labelFor(article.contentType)}{article.category ? ` · ${article.category}` : ""}</p>
+      <h2>{article.title}</h2>
+      <p>{article.excerpt}</p>
+      <div class="meta"><span>{article.authorName}</span><span>{new Date(article.publishedAt).toLocaleDateString("en", { year: "numeric", month: "short", day: "numeric", timeZone: "UTC" })}</span><span>{article.readTime} min read</span></div>
+    </div>
+  </a>
+</article>

@@ -1,0 +1,9 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ArticleCard from "../../components/ArticleCard.astro";
+import { getArticles } from "../../lib/content";
+const articles = (await getArticles()).filter((article) => article.contentType === "doc");
+---
+<BaseLayout title="Guides | Infinity ERP" description="Helpful guides and knowledge articles for Infinity ERP teams.">
+  <section class="container listing section"><p class="eyebrow">Learn &amp; apply</p><h1>Guides</h1><p class="intro">Step-by-step knowledge to help your team plan, launch, and improve.</p><div class="card-grid">{articles.map((article) => <ArticleCard article={article} />)}</div></section>
+</BaseLayout>

@@ -1,0 +1,23 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getArticles, sectionFor, labelFor, type Article } from "../../lib/content";
+import { renderPortableText } from "../../lib/portable-text";
+export async function getStaticPaths() {
+  const articles = await getArticles();
+  return articles.map((article: Article) => ({ params: { section: sectionFor(article), slug: article.slug }, props: { article } }));
+}
+const { article } = Astro.props as { article: Article };
+const bodyHtml = renderPortableText(article.body);
+const published = new Date(article.publishedAt).toLocaleDateString("en", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" });
+---
+<BaseLayout title={`${article.seoTitle || article.title} | Infinity ERP`} description={article.seoDescription || article.excerpt}>
+  <article class="container article section">
+    <a class="back-link" href={`/${sectionFor(article)}/`}>← Back to {sectionFor(article) === "docs" ? "guides" : sectionFor(article)}</a>
+    <header class="article-header"><p class="eyebrow">{labelFor(article.contentType)}{article.category ? ` · ${article.category}` : ""}</p><h1>{article.title}</h1><p class="article-excerpt">{article.excerpt}</p>
+      <div class="meta article-meta"><span>{article.authorName}{article.authorRole ? ` · ${article.authorRole}` : ""}</span><span>{published}</span><span>{article.readTime} min read</span></div>
+    </header>
+    {article.coverImage?.url && <img class="article-cover" src={article.coverImage.url} alt={article.coverImage.alt ?? ""} />}
+    <div class="article-body" set:html={bodyHtml} />
+    {article.tags.length > 0 && <div class="tag-list" aria-label="Tags">{article.tags.map((tag) => <span class="tag">{tag}</span>)}</div>}
+  </article>
+</BaseLayout>

@@ -1,0 +1,23 @@
+{
+  "name": "infinity-erp-documentation",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "studio": "sanity dev",
+    "studio:build": "sanity build"
+  },
+  "dependencies": {
+    "@sanity/client": "^6.27.2",
+    "@sanity/image-url": "^1.1.0",
+    "astro": "^5.5.0",
+    "sanity": "^3.74.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "typescript": "^5.7.3"
+  }
+}

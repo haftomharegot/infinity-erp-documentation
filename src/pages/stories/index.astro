@@ -1,0 +1,9 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ArticleCard from "../../components/ArticleCard.astro";
+import { getArticles } from "../../lib/content";
+const articles = (await getArticles()).filter((article) => article.contentType === "story" || article.contentType === "case-study");
+---
+<BaseLayout title="Customer stories | Infinity ERP" description="Stories about teams improving how they work with Infinity ERP.">
+  <section class="container listing section"><p class="eyebrow">Customer outcomes</p><h1>Stories</h1><p class="intro">Experiences, lessons, and transformation journeys from the people doing the work.</p><div class="card-grid">{articles.map((article) => <ArticleCard article={article} />)}</div></section>
+</BaseLayout>

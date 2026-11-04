@@ -1,0 +1,17 @@
+---
+const nav = [
+  { href: "/", label: "Home" },
+  { href: "/blog/", label: "Blog" },
+  { href: "/stories/", label: "Stories" },
+  { href: "/docs/", label: "Guides" },
+];
+---
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="/" aria-label="Infinity ERP home"><span class="brand-mark">∞</span><span>Infinity ERP<span class="brand-subtitle">Stories &amp; insights</span></span></a>
+    <nav aria-label="Main navigation">
+      {nav.map((item) => <a href={item.href} aria-current={Astro.url.pathname === item.href ? "page" : undefined}>{item.label}</a>)}
+      <a class="search-link" href="/search/">Search</a>
+    </nav>
+  </div>
+</header>

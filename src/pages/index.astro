@@ -1,0 +1,28 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ArticleCard from "../components/ArticleCard.astro";
+import { getArticles } from "../lib/content";
+const articles = await getArticles();
+const featured = articles.filter((article) => article.featured).slice(0, 2);
+const latest = articles.slice(0, 6);
+---
+<BaseLayout title="Infinity ERP | Stories & Insights" description="Customer stories, ERP insights, and practical guides for growing teams.">
+  <section class="hero">
+    <div class="container hero-content">
+      <p class="eyebrow">Ideas for better operations</p>
+      <h1>Make work flow.<br /><span>Make progress visible.</span></h1>
+      <p class="hero-copy">Explore practical ERP guidance, customer stories, and ideas to help your teams work with clarity.</p>
+      <div class="hero-actions"><a class="button button-primary" href="/stories/">Explore stories</a><a class="button button-secondary" href="/blog/">Read the blog</a></div>
+    </div>
+  </section>
+  <section class="container section">
+    <div class="section-heading"><div><p class="eyebrow">Handpicked</p><h2>Featured</h2></div><a href="/stories/">All stories →</a></div>
+    <div class="card-grid">{featured.map((article) => <ArticleCard article={article} />)}</div>
+  </section>
+  <section class="section section-tint">
+    <div class="container">
+      <div class="section-heading"><div><p class="eyebrow">Fresh thinking</p><h2>Latest content</h2></div><a href="/blog/">Browse all →</a></div>
+      <div class="card-grid">{latest.map((article) => <ArticleCard article={article} />)}</div>
+    </div>
+  </section>
+</BaseLayout>

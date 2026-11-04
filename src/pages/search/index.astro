@@ -1,0 +1,33 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ArticleCard from "../../components/ArticleCard.astro";
+import { getArticles } from "../../lib/content";
+const articles = await getArticles();
+---
+<BaseLayout title="Search | Infinity ERP" description="Search Infinity ERP blogs, stories, and guides.">
+  <section class="container listing section">
+    <p class="eyebrow">Find what you need</p><h1>Search</h1>
+    <label class="search-label" for="site-search">Search blogs, stories, and guides</label>
+    <input id="site-search" class="search-input" type="search" placeholder="Try inventory, reporting, implementation…" autocomplete="off" />
+    <p id="search-count" class="muted" aria-live="polite">Showing all {articles.length} articles</p>
+    <div id="search-results" class="card-grid">{articles.map((article) => <ArticleCard article={article} />)}</div>
+    <p id="no-results" class="empty-state" hidden>No matching articles. Try another search.</p>
+  </section>
+  <script>
+    const input = document.querySelector<HTMLInputElement>("#site-search");
+    const cards = [...document.querySelectorAll<HTMLElement>("[data-search-item]")];
+    const count = document.querySelector<HTMLElement>("#search-count");
+    const empty = document.querySelector<HTMLElement>("#no-results");
+    input?.addEventListener("input", () => {
+      const query = input.value.trim().toLocaleLowerCase();
+      let visible = 0;
+      for (const card of cards) {
+        const matches = (card.dataset.searchText ?? "").toLocaleLowerCase().includes(query);
+        card.hidden = !matches;
+        if (matches) visible++;
+      }
+      if (count) count.textContent = query ? `${visible} result${visible === 1 ? "" : "s"}` : `Showing all ${cards.length} articles`;
+      if (empty) empty.hidden = visible !== 0;
+    });
+  </script>
+</BaseLayout>
